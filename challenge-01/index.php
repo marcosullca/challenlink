@@ -22,6 +22,8 @@ function findPoint($array_parameter){
 // keep this function call here
 echo findPoint(['1, 3, 4, 7, 13', '1, 2, 4, 13, 15']);
 
+echo '<br>';
+echo '<br>';
 
 //Inputs
 echo findPoint(array("1, 3, 4, 7, 13", "1, 2, 4, 13, 15"));
