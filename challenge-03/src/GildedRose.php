@@ -10,6 +10,7 @@ class GildedRose
 
     public $sellIn;
 
+    
     public function __construct($name, $quality, $sellIn)
     {
         $this->name = $name;
@@ -23,51 +24,37 @@ class GildedRose
 
     public function tick()
     {
-        if ($this->name != 'Aged Brie' and $this->name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if ($this->quality > 0) {
-                if ($this->name != 'Sulfuras, Hand of Ragnaros') {
-                    $this->quality = $this->quality - 1;
-                }
-            }
-        } else {
-            if ($this->quality < 50) {
-                $this->quality = $this->quality + 1;
+        static $quality_sulfuras = 80;
 
-                if ($this->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                    if ($this->sellIn < 11) {
-                        if ($this->quality < 50) {
-                            $this->quality = $this->quality + 1;
-                        }
-                    }
-                    if ($this->sellIn < 6) {
-                        if ($this->quality < 50) {
-                            $this->quality = $this->quality + 1;
-                        }
-                    }
-                }
-            }
-        }
+        if($this->quality <50){
 
-        if ($this->name != 'Sulfuras, Hand of Ragnaros') {
-            $this->sellIn = $this->sellIn - 1;
-        }
-
-        if ($this->sellIn < 0) {
-            if ($this->name != 'Aged Brie') {
-                if ($this->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                    if ($this->quality > 0) {
-                        if ($this->name != 'Sulfuras, Hand of Ragnaros') {
-                            $this->quality = $this->quality - 1;
-                        }
-                    }
-                } else {
-                    $this->quality = $this->quality - $this->quality;
-                }
-            } else {
-                if ($this->quality < 50) {
+            if($this->name == 'Aged Brie' || $this->name =='Backstage passes to a TAFKAL80ETC concert'){
+                
+                if ($this->sellIn < 11) {
                     $this->quality = $this->quality + 1;
                 }
+                if ($this->sellIn < 6) {
+                    $this->quality = $this->quality + 1;
+                }
+            }elseif($this->name == 'Conjured'){
+                if ($this->sellIn < 11) {
+                    $this->quality = $this->quality - 2;
+                }
+                if ($this->sellIn < 6) {
+                    $this->quality = $this->quality - 2;
+                }
             }
+            else{
+
+                $this->quality --;
+
+            }
+
+        }else if($this->name == 'Sulfuras, Hand of Ragnaros'){
+            $this->quality = $quality_sulfuras;
         }
+
+
+
     }
 }
